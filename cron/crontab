@@ -1,0 +1,4 @@
+* * * * * sleep 2; sh -c 'mysqldump --no-create-info -uroot -proot aprex-api > /srv/backup/aprex-api-mariadb-dump-last$(date %H-%M-%S).sql'
+* * * * * sftp -P 23 -i /Users/loryleticee/.ssh/id_rsa ubuntu@54.37.75.241:. <<< $' put /srv/backup/aprex-api-mariadb-dump-last.sql'
+
+* * * * * cd /srv/backup; sh -c 'for FILE in /srv/backup/*-last*; do newfile="$(echo ${FILE} |sed -e s/\-last//)" ; mv "${FILE}" "${newfile}" ;done;'
